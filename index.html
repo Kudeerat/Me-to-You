@@ -9,7 +9,7 @@
 
 <style>
 
-/* 🌌 upgraded galaxy romantic background */
+/* 🌌 BACKGROUND */
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -24,7 +24,7 @@ body {
         linear-gradient(135deg, #fff6f8, #f7efe8);
 }
 
-/* 🌸 floating blobs */
+/* floating blobs */
 .blob {
     position: absolute;
     width: 320px;
@@ -44,40 +44,6 @@ body {
     50%{ transform: translateY(-30px) scale(1.08); }
 }
 
-/* ✨ moving stars layer */
-.stars {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 0;
-}
-
-.stars::before,
-.stars::after {
-    content: "✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧";
-    position: absolute;
-    width: 200%;
-    font-size: 18px;
-    color: rgba(255,255,255,0.6);
-    animation: floatStars 18s linear infinite;
-    letter-spacing: 40px;
-}
-
-.stars::after {
-    top: 50%;
-    animation-duration: 25s;
-    opacity: 0.4;
-}
-
-@keyframes floatStars {
-    from { transform: translateY(100vh) translateX(0); }
-    to { transform: translateY(-100vh) translateX(-50px); }
-}
-
 /* container */
 .container {
     height: 100vh;
@@ -95,7 +61,7 @@ body {
 
     opacity: 0;
     transform: translateY(25px) scale(0.96);
-    transition: all 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.75s ease;
 
     padding: 38px;
     border-radius: 28px;
@@ -103,12 +69,7 @@ body {
     background: rgba(255, 255, 255, 0.55);
     backdrop-filter: blur(22px);
 
-    box-shadow:
-        0 20px 60px rgba(0,0,0,0.08),
-        inset 0 1px 0 rgba(255,255,255,0.4);
-
-    border: 1px solid rgba(255,255,255,0.35);
-
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
     pointer-events: none;
 }
 
@@ -122,12 +83,11 @@ body {
 h1 {
     font-family: 'Playfair Display', serif;
     color: #c85c7a;
-    font-size: 34px;
 }
 
 p {
     font-size: 17px;
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
 /* buttons */
@@ -140,28 +100,35 @@ button {
     color: white;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 10px 25px rgba(255, 111, 145, 0.25);
 }
 
-button:hover {
-    transform: translateY(-2px);
+/* teddy */
+.teddy {
+    font-size: 28px;
+    margin-top: 15px;
+    display: inline-block;
+    opacity: 0.9;
 }
 
-/* nav */
-.nav {
-    margin-top: 25px;
+/* idle breathing */
+.teddy.idle {
+    animation: breathe 2.5s infinite ease-in-out;
 }
 
-/* cupid */
-.cupid {
-    font-size: 100px;
-    animation: bounce 1.8s infinite;
+@keyframes breathe {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
 }
 
-@keyframes bounce {
-    0%,100%{ transform: translateY(0); }
-    50%{ transform: translateY(-14px); }
+/* bass pulse */
+.teddy.pulse {
+    animation: pulse 0.35s ease-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
 }
 
 /* progress */
@@ -173,141 +140,175 @@ button:hover {
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 13px;
-    backdrop-filter: blur(10px);
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- 🌸 blobs -->
 <div class="blob"></div>
 <div class="blob"></div>
 <div class="blob"></div>
 
-<!-- ✨ stars layer -->
-<div class="stars"></div>
-
-<div id="progress">1 / 23</div>
+<div id="progress">1 / 30</div>
 
 <audio id="music" src="music.mp3" loop></audio>
 
 <div class="container">
 
-<!-- PAGE 0 -->
+<!-- 1 -->
 <div class="page active">
-    <h1>HI LOVE ❤️</h1>
-    <p>This is something small… but it carries all the things I can’t always say out loud.</p>
-    <p>Before anything else… I just want you to feel loved today.</p>
-    <button onclick="start()">Begin</button>
+<h1>HI LOVE ❤️</h1>
+<p>This is something small… but full of meaning.</p>
+<button onclick="start()">Begin</button>
+<div class="teddy idle">🧸</div>
 </div>
 
-<!-- PAGE 1 -->
+<!-- 2 -->
 <div class="page">
-    <h1>Welcome to Your Best Year Yet ❤️</h1>
-    <p>A little journey made just for you.</p>
-    <div class="nav">
-        <button onclick="prev()">Back</button>
-        <button onclick="next()">Next</button>
-    </div>
+<h1>Welcome to Your Best Year Yet</h1>
+<p>A journey made just for you.</p>
+<div class="nav">
+<button onclick="prev()">Back</button>
+<button onclick="next()">Next</button>
+</div>
+<div class="teddy idle">🧸</div>
 </div>
 
-<!-- PAGE 2 -->
+<!-- 3 -->
 <div class="page">
-    <h1>Happy Birthday Pelumi🎂</h1>
-    <p>Every page is a piece of how I see you… and how much you mean to me.</p>
-    <div class="nav">
-        <button onclick="prev()">Back</button>
-        <button onclick="next()">Next</button>
-    </div>
+<h1>Happy Birthday ❤️</h1>
+<p>Every page is a piece of my heart.</p>
+<div class="nav">
+<button onclick="prev()">Back</button>
+<button onclick="next()">Next</button>
+</div>
+<div class="teddy idle">🧸</div>
 </div>
 
-<!-- MESSAGE PAGES -->
-<div class="page"><p>You are my baby. Protective, passionate, kind, romantic, emotional, and soft in ways you don’t even see in yourself.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
+<!-- MESSAGE PAGES (sample compressed pattern repeated) -->
+<script>
+const messages = [
+"You are my baby. Protective, passionate, kind, romantic, emotional, and soft in ways you don’t even see in yourself.",
+"It felt natural… like something meant to happen.",
+"Our first date was simple, calm, and real.",
+"That night at Latitude felt like the world disappeared.",
+"I notice how you care even in small ways.",
+"I could say I love you in 50 ways and still not be enough.",
+"Even when you annoy me… I still smile.",
+"I miss you in quiet moments.",
+"You make my life easier just by being you.",
+"You feel like calm in chaos.",
+"I believe in your dreams even when you doubt yourself.",
+"Your dream is unfolding beautifully.",
+"You grow, I grow, we don’t limit each other.",
+"One day… Paris.",
+"Old Trafford together laughing.",
+"We still have places to go.",
+"I pray for your happiness.",
+"I will always be in your corner.",
+"Thank you for being you.",
+"If I had to choose again… I’d still choose you."
+];
 
-<div class="page"><p>It didn’t feel forced with you. It felt natural… like something already meant to happen.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
+const container = document.querySelector(".container");
 
-<div class="page"><p>Our first date was simple, calm, and real. Just presence and comfort.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>That night at Latitude felt like the world disappeared… just us.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>I notice how you care, even in the smallest ways.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>I could say I love you in 50 ways and still feel like it’s not enough.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>Even when you annoy me… I still smile because it’s you.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>I miss you in quiet moments… when my mind finds you.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>You make my life easier just by existing in it.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>You feel like calm in chaos.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>I believe in your dreams even when you doubt yourself.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>Your dream is unfolding even when you can’t see it yet.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>You grow. I grow. We don’t limit each other.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>One day… Paris. Croissants, laughter, chaos, love.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>Old Trafford together—laughing like we own the world.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>We still have places to go, memories to build.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>I pray for your happiness, peace, and success.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>I will always be in your corner.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>Thank you for being you.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
-
-<div class="page"><p>If I had to choose again… I’d still choose you.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
+messages.forEach((msg,i)=>{
+    const div = document.createElement("div");
+    div.className = "page";
+    div.innerHTML = `
+        <p>${msg}</p>
+        <div class="nav">
+            <button onclick="prev()">Back</button>
+            <button onclick="next()">Next</button>
+        </div>
+        <div class="teddy idle">🧸</div>
+    `;
+    container.appendChild(div);
+});
+</script>
 
 <!-- FINAL -->
 <div class="page">
-    <div class="cupid">💘</div>
-    <h1>You mean the world to me</h1>
-    <p>Even in hard times, I love being the reason for your smile ❤️</p>
-    <p>I love you Always ❤️</p>
-    <p>I pray life is kind to you❤️</p>
-    <p>HAPPY BIRTHDAY SWEETHEART❤️</p>
-
-    <div class="nav">
-        <button onclick="prev()">Back</button>
-        <button onclick="restart()">Restart</button>
-    </div>
+<h1>You mean the world to me</h1>
+<p>Even in hard times, I love being your smile ❤️</p>
+<p>HAPPY BIRTHDAY ❤️</p>
+<div class="teddy idle">🧸</div>
 </div>
 
 </div>
 
 <script>
+
 let current = 0;
 const pages = document.querySelectorAll(".page");
 const music = document.getElementById("music");
 const progress = document.getElementById("progress");
 
+let ctx, analyser, dataArray;
+
+function start(){
+    show(1);
+    music.play().catch(()=>{});
+    setupAudio();
+}
+
 function show(i){
-    pages.forEach(p => p.classList.remove("active"));
+    pages.forEach(p=>p.classList.remove("active"));
     pages[i].classList.add("active");
     current = i;
     progress.innerText = `${i+1} / ${pages.length}`;
+    pulse();
 }
 
 function next(){ if(current < pages.length-1) show(current+1); }
 function prev(){ if(current > 0) show(current-1); }
-function restart(){ show(0); }
 
-function start(){
-    show(1);
-    music.volume = 0.5;
-    music.play().catch(()=>{});
+function pulse(){
+    document.querySelectorAll(".teddy").forEach(t=>{
+        t.classList.remove("pulse");
+        void t.offsetWidth;
+        t.classList.add("pulse");
+    });
 }
 
-document.addEventListener("click", () => {
-    if(music.paused){
-        music.play().catch(()=>{});
+/* AUDIO BASS SYNC */
+function setupAudio(){
+    if(ctx) return;
+
+    ctx = new AudioContext();
+    const src = ctx.createMediaElementSource(music);
+    analyser = ctx.createAnalyser();
+    analyser.fftSize = 256;
+
+    src.connect(analyser);
+    analyser.connect(ctx.destination);
+
+    dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+    detect();
+}
+
+function detect(){
+    analyser.getByteFrequencyData(dataArray);
+
+    let bass = 0;
+    for(let i=0;i<10;i++) bass += dataArray[i];
+    bass /= 10;
+
+    if(bass > 120){
+        pulse();
     }
+
+    requestAnimationFrame(detect);
+}
+
+document.addEventListener("click",()=>{
+    if(music.paused) music.play();
+    if(ctx && ctx.state === "suspended") ctx.resume();
 });
+
 </script>
 
 </body>
