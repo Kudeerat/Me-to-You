@@ -8,264 +8,257 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+
+/* 🌌 GALAXY BACKGROUND */
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif;
-    overflow: hidden;
     height: 100vh;
-    transition: background 1.5s ease;
-    background: radial-gradient(circle at top, #ffe4ec, #f8ede3);
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at bottom, #0b0c2a, #1a0f2e, #2b123f);
+    color: white;
 }
 
-/* 💓 heartbeat glow */
+/* ⭐ STARFIELD */
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    opacity: 0.8;
+    animation: floatStars linear infinite;
+}
+
+@keyframes floatStars {
+    from { transform: translateY(0); }
+    to { transform: translateY(100vh); }
+}
+
+/* 💓 HEARTBEAT GLOW */
 body.heartbeat {
-    animation: pulse 2.5s infinite;
+    animation: heartbeat 2s infinite;
 }
 
-@keyframes pulse {
+@keyframes heartbeat {
     0% { filter: brightness(1); }
-    50% { filter: brightness(1.2); }
+    50% { filter: brightness(1.4) saturate(1.3); }
     100% { filter: brightness(1); }
 }
 
-/* 🎬 Netflix intro */
-#intro {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: black;
-    color: #ff4d6d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 40px;
-    font-family: 'Playfair Display';
-    z-index: 999;
-    animation: introFade 3s forwards;
-}
-
-@keyframes introFade {
-    0% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { opacity: 0; visibility: hidden; }
-}
-
-/* container */
-.container {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* pages */
+/* 🎬 PAGES */
 .page {
     position: absolute;
-    width: 85%;
-    max-width: 760px;
-    text-align: center;
+    width: 80%;
+    max-width: 750px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
     opacity: 0;
-    transform: scale(0.9);
     transition: 0.7s ease;
-    padding: 35px;
-    border-radius: 25px;
-    background: rgba(255,255,255,0.65);
-    backdrop-filter: blur(15px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-    pointer-events: none;
+    text-align: center;
+    padding: 30px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
 }
 
 .page.active {
     opacity: 1;
-    transform: scale(1);
-    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
 }
 
+/* 💖 TEXT */
 h1 {
     font-family: 'Playfair Display';
-    color: #d46a7c;
+    color: #ff9bb3;
 }
 
-p {
-    font-size: 16px;
-    line-height: 1.7;
-    color: #333;
-}
-
-/* buttons */
 button {
-    margin: 10px;
-    padding: 12px 26px;
+    padding: 12px 20px;
+    border-radius: 25px;
     border: none;
-    border-radius: 30px;
-    background: linear-gradient(135deg,#ff8fab,#f4acb7);
+    margin: 8px;
+    background: linear-gradient(135deg,#ff6f91,#ff9671);
     color: white;
-    font-weight: bold;
     cursor: pointer;
 }
 
-/* cupid */
-.cupid {
-    font-size: 90px;
-    animation: bounce 1s infinite;
-}
-
-@keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
-
-/* confetti */
-.confetti {
+/* 🌠 SHOOTING STAR */
+.shooting-star {
     position: fixed;
-    width: 10px;
-    height: 10px;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, white, transparent);
     top: -10px;
-    animation: fall 3s linear forwards;
+    left: 0;
+    animation: shoot 1.2s linear;
 }
 
-@keyframes fall {
-    to { transform: translateY(100vh) rotate(720deg); }
+@keyframes shoot {
+    from { transform: translateX(-100px) translateY(0); opacity: 1; }
+    to { transform: translateX(100vw) translateY(100vh); opacity: 0; }
 }
 
-/* secret heart */
-#secretHeart {
-    font-size: 45px;
-    cursor: pointer;
-    opacity: 0.5;
+/* 🎬 END CREDITS */
+#credits {
+    position: fixed;
+    bottom: -100%;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+    animation: creditsRoll 12s linear forwards;
+}
+
+@keyframes creditsRoll {
+    to { bottom: 120%; }
+}
+
+/* 💌 INPUT */
+input {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    text-align: center;
 }
 </style>
 </head>
 
 <body class="heartbeat">
 
-<!-- 🎬 INTRO -->
-<div id="intro">Netflix Presents ❤️</div>
-
 <audio id="music" src="music.mp3" loop></audio>
 
-<div class="container">
+<!-- 🌠 STARFIELD -->
+<script>
+for(let i=0;i<120;i++){
+    let s=document.createElement("div");
+    s.className="star";
+    s.style.left=Math.random()*100+"vw";
+    s.style.top=Math.random()*100+"vh";
+    s.style.animationDuration=(5+Math.random()*10)+"s";
+    document.body.appendChild(s);
+}
+</script>
 
-<!-- PAGE 0 -->
+<!-- PAGES -->
 <div class="page active">
     <h1>I Choose You ❤️</h1>
-    <p>A story about choosing someone… every single day.</p>
+    <p>A cinematic love story…</p>
     <button onclick="start()">Begin</button>
 </div>
 
-<!-- PAGE 1 -->
 <div class="page">
-    <h1>Happy Birthday 🎂</h1>
-    <p>This isn’t just a message… it’s a story written with emotion, memory, and choice.</p>
+    <h1>It Started Quietly</h1>
+    <p>Like something my heart already understood before I did.</p>
+    <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+    <h1>And Then It Grew</h1>
+    <p>Not rushed. Not forced. Just real.</p>
     <button onclick="prev()">Back</button>
     <button onclick="next()">Next</button>
 </div>
 
-<!-- STORY PAGES (I CHOOSE YOU THEME) -->
-<div class="page"><p>🎵 It didn’t start loud. It started quietly… like my heart already knew before I did.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>💗 I didn’t fall into love. I grew into it… slowly, naturally, without fear.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>🌙 With you, I don’t feel like I have to become someone else. I just exist… and that is enough.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>💞 If love is a choice… I keep choosing you, even in silence.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>💫 We are not perfect. But we are real. And that has always been enough for me.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<!-- 💌 SECRET PAGE -->
 <div class="page">
-    <h1>💌 Secret</h1>
-    <p id="secretText">Tap the heart 3 times</p>
-    <div id="secretHeart" onclick="unlock()">💖</div>
-    <button onclick="prev()">Back</button>
+    <h1>💓 I Choose You</h1>
+    <p>Even in silence, I still choose you.</p>
     <button onclick="next()">Next</button>
 </div>
 
-<div class="page"><p>🌍 Every future I imagine… still has you in it.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<!-- FINAL -->
+<!-- 💌 LOCK PAGE -->
 <div class="page">
-    <div class="cupid">💘</div>
-    <h1>I Choose You</h1>
-    <p>Not once. Not sometimes. But always. In every version of life.</p>
-    <button onclick="prev()">Back</button>
+    <h1>💌 Final Lock</h1>
+    <p>Type my name to unlock the ending</p>
+    <input id="nameInput" placeholder="enter name">
+    <br><br>
+    <button onclick="unlock()">Unlock</button>
+</div>
+
+<!-- FINAL PAGE -->
+<div class="page">
+    <h1>💖 You Found It</h1>
+    <p>You are my forever choice.</p>
     <button onclick="restart()">Restart</button>
 </div>
 
+<!-- 🎬 CREDITS -->
+<div id="credits">
+    A love story written in motion ❤️<br>
+    I Choose You — Always<br>
+    The End ✨
 </div>
 
 <script>
-let current = 0;
-const pages = document.querySelectorAll(".page");
-const music = document.getElementById("music");
 
-/* show page */
+let pages=document.querySelectorAll(".page");
+let current=0;
+let music=document.getElementById("music");
+
+/* SHOW PAGE */
 function show(i){
-    pages.forEach(p => p.classList.remove("active"));
+    pages.forEach(p=>p.classList.remove("active"));
     pages[i].classList.add("active");
-    current = i;
+    current=i;
 }
 
-/* nav */
-function next(){ if(current < pages.length-1) show(current+1); }
-function prev(){ if(current > 0) show(current-1); }
+/* NAV */
+function next(){ if(current<pages.length-1) show(current+1); }
+function prev(){ if(current>0) show(current-1); }
 function restart(){ show(0); }
 
-/* start */
+/* START */
 function start(){
-    show(1);
-    music.volume = 0.5;
     music.play().catch(()=>{});
+    show(1);
+    spawnStars();
 }
 
-/* intro remove */
-setTimeout(()=>{
-    document.getElementById("intro").style.display = "none";
+/* 💌 NAME UNLOCK */
+function unlock(){
+    let val=document.getElementById("nameInput").value.toLowerCase();
+    if(val.length>0){
+        show(pages.length-1);
+    }else{
+        alert("Type the name ❤️");
+    }
+}
+
+/* 🌠 SHOOTING STARS */
+function shootingStar(){
+    let star=document.createElement("div");
+    star.className="shooting-star";
+    document.body.appendChild(star);
+    setTimeout(()=>star.remove(),1200);
+}
+
+/* random stars */
+setInterval(()=> {
+    if(current>0){
+        shootingStar();
+    }
 },3000);
 
-/* 💌 secret unlock */
-let taps = 0;
-function unlock(){
-    taps++;
-    if(taps >= 3){
-        document.getElementById("secretText").innerText = "You already have my heart ❤️";
-    }
-}
-
-/* 🎆 confetti */
-function confetti(){
-    for(let i=0;i<30;i++){
-        let c = document.createElement("div");
-        c.classList.add("confetti");
-        c.style.left = Math.random()*100 + "vw";
-        c.style.background = ["#ff8fab","#f4acb7","#ffd6e0"][Math.floor(Math.random()*3)];
-        document.body.appendChild(c);
-        setTimeout(()=>c.remove(),3000);
-    }
-}
-
-/* trigger confetti on final page */
+/* 🎧 FAKE MUSIC SYNC (VISUAL BEAT PULSE) */
 setInterval(()=>{
-    if(current === pages.length-1){
-        confetti();
+    if(!music.paused){
+        document.body.style.filter="brightness("+(1+Math.random()*0.2)+")";
     }
-},2000);
+},400);
 
-/* swipe support */
-let startX = 0;
-document.addEventListener("touchstart", e => startX = e.touches[0].clientX);
-document.addEventListener("touchend", e => {
-    let endX = e.changedTouches[0].clientX;
-    if(startX - endX > 50) next();
-    if(endX - startX > 50) prev();
-});
+/* 🌌 STAR SPAWN CONTROL */
+function spawnStars(){
+    setInterval(()=>{
+        let s=document.createElement("div");
+        s.className="star";
+        s.style.left=Math.random()*100+"vw";
+        s.style.top="-10px";
+        s.style.animationDuration=(5+Math.random()*10)+"s";
+        document.body.appendChild(s);
+        setTimeout(()=>s.remove(),12000);
+    },300);
+}
 
-/* music unlock */
-document.addEventListener("click", ()=>{
-    if(music.paused){
-        music.play().catch(()=>{});
-    }
-});
 </script>
 
 </body>
