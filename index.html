@@ -16,6 +16,11 @@ body{
 /* START SCREEN */
 #startScreen{
     display:flex;
+    height:100vh;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    flex-direction:column;
 }
 
 /* PAGE */
@@ -100,13 +105,14 @@ button{
     <source src="music.mp3" type="audio/mp3">
 </audio>
 
-<!-- START -->
-<div id="startScreen" class="page active">
+<!-- START SCREEN -->
+<div id="startScreen">
     <div>
         <h1>💖 Tap to Begin</h1>
         <button onclick="startSite()">Start</button>
     </div>
 </div>
+
 
 <!-- PAGES (UNCHANGED CONTENT) -->
 
@@ -271,7 +277,7 @@ const total = 20;
 
 const music = document.getElementById("music");
 
-/* MUSIC FIX */
+/* MUSIC FIX (autoplay safe) */
 function startMusic(){
     music.play().catch(() => {
         document.body.addEventListener("click", () => music.play(), {once:true});
@@ -280,7 +286,7 @@ function startMusic(){
 
 /* START */
 function startSite(){
-    document.getElementById("startScreen").classList.remove("active");
+    document.getElementById("startScreen").style.display = "none";
     current = 1;
     show(current);
     startMusic();
@@ -312,7 +318,7 @@ function back(){
     }
 }
 
-/* BACK FINAL */
+/* BACK FROM FINAL */
 function backTo20(){
     document.getElementById("final").style.display = "none";
     current = total;
