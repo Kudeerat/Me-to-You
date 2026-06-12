@@ -9,91 +9,79 @@
 
 <style>
 body{
-    margin:0;
-    height:100vh;
-    overflow:hidden;
-    font-family:Poppins;
-    background: radial-gradient(circle,#120b2e,#1a123f,#2b123f);
-    color:white;
+margin:0;
+height:100vh;
+overflow:hidden;
+font-family:Poppins;
+background: radial-gradient(circle,#120b2e,#1a123f,#2b123f);
+color:white;
 }
 
-/* STARFIELD */
-.star{
-    position:absolute;
-    width:2px;height:2px;
-    background:white;
-    opacity:0.7;
-    animation:fall linear infinite;
-}
-@keyframes fall{to{transform:translateY(100vh)}}
-
-/* HEARTBEAT */
-body.heartbeat{animation:beat 2.5s infinite}
-@keyframes beat{
-0%{filter:brightness(1)}
-50%{filter:brightness(1.3)}
-100%{filter:brightness(1)}
-}
-
-/* PAGE */
+/* pages */
 .page{
-    position:absolute;
-    width:80%;
-    max-width:750px;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%) scale(0.9);
-    opacity:0;
-    transition:.6s ease;
-    text-align:center;
-    padding:25px;
-    border-radius:20px;
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(20px);
+position:absolute;
+width:80%;
+max-width:750px;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%) scale(0.9);
+opacity:0;
+transition:.6s ease;
+text-align:center;
+padding:25px;
+border-radius:20px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(20px);
+pointer-events:none;
 }
 
 .page.active{
-    opacity:1;
-    transform:translate(-50%,-50%) scale(1);
+opacity:1;
+transform:translate(-50%,-50%) scale(1);
+pointer-events:auto;
 }
 
 h1{color:#ff9bb3;font-family:Playfair Display}
 
 button{
-    padding:10px 18px;
-    border:none;
-    border-radius:20px;
-    margin:6px;
-    background:#ff6f91;
-    color:white;
-    cursor:pointer;
+padding:10px 18px;
+border:none;
+border-radius:20px;
+margin:6px;
+background:#ff6f91;
+color:white;
+cursor:pointer;
 }
 
 input{
-    padding:10px;
-    border-radius:15px;
-    border:none;
-    text-align:center;
+padding:10px;
+border-radius:15px;
+border:none;
+text-align:center;
 }
 
-/* credits */
-#credits{
-position:fixed;
-bottom:-100%;
-width:100%;
-text-align:center;
-animation:credits 12s linear forwards;
+/* stars */
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+opacity:.7;
+animation:fall linear infinite;
 }
-@keyframes credits{to{bottom:120%}}
+
+@keyframes fall{
+to{transform:translateY(100vh)}
+}
 </style>
 </head>
 
-<body class="heartbeat">
+<body>
 
 <audio id="music" src="music.mp3" loop></audio>
 
 <script>
-for(let i=0;i<120;i++){
+for(let i=0;i<100;i++){
 let s=document.createElement("div");
 s.className="star";
 s.style.left=Math.random()*100+"vw";
@@ -103,101 +91,83 @@ document.body.appendChild(s);
 }
 </script>
 
-<div class="container">
+<!-- 30 PAGES -->
 
-<!-- 1 -->
 <div class="page active"><h1>Netflix Presents ❤️</h1><button onclick="start()">Begin</button></div>
 
-<!-- 2 -->
-<div class="page"><h1>I Choose You</h1><p>A cinematic love story</p><button onclick="next()">Next</button></div>
+<div class="page"><p>I Choose You — a story in motion.</p><button onclick="next()">Next</button></div>
 
-<!-- 3–20 LOVE STORY -->
-<div class="page"><p>It started quietly… like my heart already knew.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>I didn’t fall into love. I grew into it.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>You feel like calm in chaos.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>I don’t need perfect. I need real.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>You became my peace.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>I choose you in silence too.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>Even on bad days… still you.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>You feel like home.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>My future quietly has your name in it.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>I never stopped choosing you.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>Love became simple with you.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>You are my alignment.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>I see forever in small moments.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>You make everything softer.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>Even silence feels like you.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>I would choose this again.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>You are my constant.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>Love stopped being confusing.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>It started quietly…</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+<div class="page"><p>I didn’t fall. I grew.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+<div class="page"><p>You feel like calm.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+<div class="page"><p>I choose you in silence.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+<div class="page"><p>You became my home.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+<div class="page"><p>Love became simple.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+<div class="page"><p>You are my peace.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+<div class="page"><p>I never stopped choosing you.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
 
-<!-- 21–27 DEEP ZONE -->
-<div class="page"><p>I am not afraid of us growing.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>Mistakes don’t scare me with you.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>We learn. We stay.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>You make me better without trying.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>Love is safe with you.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>You are not my missing piece.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
-<div class="page"><p>You are my peace.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>Mistakes don’t scare me with you.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+<div class="page"><p>We learn. We stay.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+<div class="page"><p>You make me better.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+<div class="page"><p>Even silence feels like you.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+<div class="page"><p>My future has you in it.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+<div class="page"><p>You are alignment.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+<div class="page"><p>I choose you again.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
 
-<!-- 28 LOCK -->
+<div class="page"><p>You are not my missing piece.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+<div class="page"><p>You are my peace.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<!-- LOCK -->
 <div class="page">
-<h1>💌 Unlock Ending</h1>
-<p>Type the name to continue</p>
-<input id="name">
+<h1>💌 Unlock</h1>
+<input id="name" placeholder="type name">
+<br><br>
 <button onclick="unlock()">Unlock</button>
 </div>
 
-<!-- 29 FINAL -->
+<!-- FINAL -->
 <div class="page">
 <h1>I Choose You ❤️</h1>
-<p>Not once. Not sometimes. Always.</p>
-<button onclick="nav(-1)">Back</button>
-<button onclick="next()">Next</button>
+<p>Always. No exceptions.</p>
+<button onclick="prev()">Back</button>
+<button onclick="restart()">Restart</button>
 </div>
-
-<!-- 30 CREDITS -->
-<div class="page">
-<h1>💖 The End</h1>
-<p>Written in love, chosen forever.</p>
-</div>
-
-</div>
-
-<div id="credits">A love story in motion ❤️</div>
-
-<audio id="music" src="music.mp3" loop></audio>
 
 <script>
+
 let pages=document.querySelectorAll(".page");
 let current=0;
 let music=document.getElementById("music");
 
+/* SHOW PAGE */
 function show(i){
+if(i<0 || i>=pages.length) return;
 pages.forEach(p=>p.classList.remove("active"));
 pages[i].classList.add("active");
 current=i;
 }
 
-function next(){if(current<pages.length-1)show(current+1);}
-function nav(d){show(current+d);}
-function start(){music.play();show(1);}
+/* NAVIGATION (FIXED) */
+function next(){ show(current+1); }
+function prev(){ show(current-1); }
+function restart(){ show(0); }
 
-function unlock(){
-let v=document.getElementById("name").value;
-if(v.length>0)show(29);
-else alert("Type name ❤️");
+/* START */
+function start(){
+music.play().catch(()=>{});
+show(1);
 }
 
-/* auto star generation */
-setInterval(()=>{
-let s=document.createElement("div");
-s.className="star";
-s.style.left=Math.random()*100+"vw";
-s.style.top="-10px";
-document.body.appendChild(s);
-setTimeout(()=>s.remove(),10000);
-},200);
+/* UNLOCK */
+function unlock(){
+let v=document.getElementById("name").value;
+if(v.trim().length>0){
+show(pages.length-1);
+}else{
+alert("Type a name ❤️");
+}
+}
+
 </script>
 
 </body>
