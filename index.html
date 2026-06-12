@@ -3,292 +3,258 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Baby 💖</title>
+<title>I Choose You ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-body{
-    margin:0;
-    font-family:Poppins, sans-serif;
-    overflow:hidden;
-    background: linear-gradient(135deg,#f7d6e0,#fcefee,#ffe4ec);
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    background: radial-gradient(circle at top, #ffe4ec, #f8ede3);
+    transition: background 1.5s ease;
 }
 
-/* SCREEN */
-.screen{
-    display:none;
-    height:100vh;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    flex-direction:column;
-    padding:20px;
+/* heartbeat glow */
+body.heartbeat {
+    animation: pulse 2.5s infinite;
 }
 
-.screen.active{
-    display:flex;
+@keyframes pulse {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.2); }
+    100% { filter: brightness(1); }
 }
 
-/* CARD */
-.card{
-    background:rgba(255,240,235,0.95);
-    padding:25px;
-    border-radius:25px;
-    max-width:800px;
+/* intro */
+#intro {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+    color: #ff4d6d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-family: 'Playfair Display';
+    z-index: 999;
+    animation: introFade 3s forwards;
 }
 
-/* BUTTON */
-button{
-    padding:12px 22px;
-    border:none;
-    border-radius:30px;
-    background:#ff7aa2;
-    color:white;
-    cursor:pointer;
-    margin:10px;
+@keyframes introFade {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
 }
 
-/* FINAL */
-#final{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100vh;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    background: radial-gradient(circle,#fff0f5,#f7e7dc);
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page {
+    position: absolute;
+    width: 85%;
+    max-width: 780px;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: 0.7s ease;
+    padding: 35px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    pointer-events: none;
+}
+
+.page.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+h1 {
+    font-family: 'Playfair Display';
+    color: #d46a7c;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #333;
+}
+
+button {
+    margin: 10px;
+    padding: 12px 26px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg,#ff8fab,#f4acb7);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cupid {
+    font-size: 90px;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+    to { transform: translateY(100vh) rotate(720deg); }
 }
 </style>
 </head>
 
-<body>
+<body class="heartbeat">
 
-<!-- MUSIC -->
-<audio id="music" loop>
-    <source src="music.mp3" type="audio/mp3">
-</audio>
+<div id="intro">Netflix Presents ❤️</div>
 
-<!-- START SCREEN -->
-<!-- START SCREEN -->
-<div id="start" class="screen active">
-    <div>
-        <h1>💖 Tap to Begin</h1>
-        <button onclick="startSite()">Start</button>
-    </div>
+<audio id="music" src="music.mp3" loop></audio>
+
+<div class="container">
+
+<!-- PAGE 0 -->
+<div class="page active">
+    <h1>I Choose You ❤️</h1>
+    <p>A story about choosing someone… every single day.</p>
+    <button onclick="start()">Begin</button>
 </div>
 
-
-<!-- PAGES (UNCHANGED CONTENT) -->
-
-<div class="screen page"><div class="card">
-<h1>❤️ You</h1>
-<p>You are my baby. Protective, passionate, kind, romantic, emotional, and soft in ways you don’t even see in yourself.</p>
-<button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page2" class="page"><div class="card">
-<h1>💖 Us</h1>
-<p class="text">It didn’t feel forced with you. It felt natural… like something already meant to happen.</p>
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page3" class="page"><div class="card">
-<h1>🌹 First Date</h1>
-<p class="text">Our first date was simple, calm, and real. No pressure… just comfort and presence.</p>
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page4" class="page"><div class="card">
-<h1>🌙 Latitude Night</h1>
-<p class="text">That night at Latitude felt like the world disappeared… it was just us in the moment.</p>
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page5" class="page"><div class="card">
-<h1>✨ Little Things</h1>
-<p class="text">The way you check on me, the way you care… I notice everything even when I don’t say it.</p>
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page6" class="page"><div class="card">
-<h1>❤️ Always You</h1>
-<p class="text"> It always going to be you, I could tell you in 5o ways how much I love you and it wont still cover it.</p>
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page7" class="page"><div class="card">
-<h1>💛 Still You</h1>
-<p class="text">But even when you piss me off… I still end up smiling because it’s still you.</p>
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page8" class="page"><div class="card">
-<h1>💔Long Distance</h1>
-<p class="text">I miss you in quiet moments. Especially when everything slows down and my mind finds you.</p>
-<p class="text">In those moments, I don’t just miss you being around.</p>
-<p class="text">I miss the version of me that exists a little more fully when you’re in my world.</p>
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page9" class="page"><div class="card">
-<h1>🌸 You Make Life Easy</h1>
-<p class="text">You make my life easier just by how you show up and how I can be myself with you.</p>
-<p class="text">With you, I don’t feel like I have to perform or hide parts of myself just to be accepted.</p>
-<p class="text">There’s a kind of comfort in knowing I can simply exist around you and still feel understood.</p>    
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page10" class="page"><div class="card">
-<h1>🌿 My Peace</h1>
-<p class="text">You feel like calm in chaos. Like everything slows down when I think about you.</p>
-<p class="text">And in that quiet pause, I realize how much peace you bring into my world without even trying.</p>
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page11" class="page"><div class="card">
-<h1>💫 I am your Biggest cheerleader</h1>
-<p class="text">I believe in your dreams even when you doubt yourself.</p>
-<p class="text">I see the potential in you that you sometimes struggle to see, and I hold onto it when your confidence shakes.</p>
-<p class="text">It’s like I’m quietly rooting for you in every direction you’re trying to grow, even from a distance.</p>    
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page12" class="page"><div class="card">
-<h1>🌱 Your Dreams</h1>
-<p class="text">Your dream isn’t just something you’re chasing—it feels like a part of who you are.</p>
-<p class="text">Even when it feels far away, I see how much effort, hope, and heart you’ve already poured into it.</p>
-<p class="text">I don’t see it as something uncertain or impossible; I see it as something still unfolding in your favor</p>    
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page13" class="page"><div class="card">
-<h1>🤍 We Grow Together</h1>
-<p class="text">You achieve your dreams. I achieve mine. We don’t hold each other back.</p>
-<p class="text">We don’t become limitations for each other; instead, we become motivation,</p>
-<p class="text">like proof that love doesn’t have to slow growth down.</p>
-<p class="text">There’s space for both of us to become who we’re meant to be without fear or restriction</p>    
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page14" class="page"><div class="card">
-<h1>✈️ Paris</h1>
-<p class="text">One day… Paris. We’d be walking like we own the place, speaking “stupid French”</p>
-<p class="text">We’d eat everything in sight—croissants, crepes, anything we can’t pronounce but still act like food experts.</p>
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page15" class="page"><div class="card">
-<h1>⚽ Old Trafford</h1>
-<p class="text">Going to Old Trafford together, screaming and laughing like we belong there.</p>
-<p class="text">Laughing at every little thing like kids</p>
-<p class="text">You arguing with the ref for no reason, and he can't even hear you,</p>
-<p class="text">Me just backing you up anyway. Because, in me, you always have a backup.</p>
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page16" class="page"><div class="card">
-<h1>🌍 Bucket List</h1>
-<p class="text">We still have places to go, memories to build, and moments to live.</p>
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page17" class="page"><div class="card">
-<h1>🙏 My Prayers</h1>
-<p class="text">I pray for your happiness, your peace, your growth, and your success.</p>
-<p class="text">I pray that everything you work for begins to align with your efforts at the right time.</p>
-<p class="text">I pray that life opens doors for you that you never even had to force.</p>
-<p class="text">And I pray that even on hard days, you still find reasons to keep going and smiling.</p>
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page18" class="page"><div class="card">
-<h1>💍 My Promise</h1>
-<p class="text">I will always be in your corner, no matter what happens. Always</p>
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page19" class="page"><div class="card">
-<h1>❤️ Thank You</h1>
-<p class="text">Thank you for being you. For existing the way you do</p>
-<button onclick="back()">⬅ Back</button><button onclick="next()">Next ➡</button>
-</div></div>
-
-<div id="page20" class="page">
-<div class="card">
-<h1>💛 To You</h1>
-<p>If I had to choose again… I’d still choose you.</p>
-<h2 style="color:#c76c7a;">I LOVE YOU ❤️</h2>
-<button onclick="back()">⬅ Back</button>
-<button onclick="next()">Finish ❤️</button>
-</div></div>
-
-<!-- FINAL PAGE -->
-<!-- FINAL PAGE -->
-<div id="final">
-<div class="finalCard">
-<div class="finalHeart">💖</div>
-<h1>For You</h1>
-<p>You know my favorite thing in the world is being the reason behind that great smile of yours.</p>
-<p>Make sure you finish the song.</p>
-<button onclick="backTo20()">⬅ Back</button>
+<!-- PAGE 1 -->
+<div class="page">
+    <h1>Happy Birthday 🎂</h1>
+    <p>This is not just a message. It is a journey through how I feel about you.</p>
+    <button onclick="prev()">Back</button>
+    <button onclick="next()">Next</button>
 </div>
+
+<!-- STORY ARC PAGES -->
+<div class="page"><p>🎵 It started quietly… like something my heart already understood before I did.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<div class="page"><p>💗 I didn’t fall into love. I grew into it… slowly, safely, naturally.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<div class="page"><p>🌙 With you, I don’t feel like I need to perform. I just exist… and that feels enough.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<div class="page"><p>💞 I don’t always say it, but I keep choosing you in silence, in thoughts, in everything.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<div class="page"><p>💫 Even on hard days, nothing in me stops choosing you.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<div class="page"><p>🌍 You became part of every version of my future without even trying.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<div class="page"><p>💌 Love didn’t confuse me with you. It clarified everything.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<div class="page"><p>🌸 Even your silence feels like home to me now.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<div class="page"><p>🕊️ I don’t love you for moments. I love you for consistency.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<div class="page"><p>🌙 I don’t need perfect. I just need real. And you are real to me.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<div class="page"><p>💓 I’ve seen versions of you you don’t even notice… and I still choose all of them.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<div class="page"><p>✨ You are not a distraction. You are alignment.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<div class="page"><p>🌍 Every future I imagine still somehow circles back to you.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<div class="page"><p>💞 Even if life changes everything else… I still see you in mine.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
+
+<!-- FINAL -->
+<div class="page">
+    <div class="cupid">💘</div>
+    <h1>I Choose You</h1>
+    <p>
+        Not once. Not twice.  
+        But every time I think about forever.
+    </p>
+
+    <button onclick="prev()">Back</button>
+    <button onclick="restart()">Restart</button>
+</div>
+
 </div>
 
 <script>
-
-let pages = document.querySelectorAll(".page");
 let current = 0;
-
+const pages = document.querySelectorAll(".page");
 const music = document.getElementById("music");
 
-/* MUSIC FIX */
-function startMusic(){
-    music.play().catch(()=>{
-        document.body.addEventListener("click", ()=>music.play(), {once:true});
-    });
-}
-
-/* START */
-function startSite(){
-    document.getElementById("start").style.display = "none";
-    pages[0].classList.add("active");
-    startMusic();
-}
-
-/* SHOW */
+/* show page */
 function show(i){
-    pages.forEach(p=>p.classList.remove("active"));
-    if(pages[i]) pages[i].classList.add("active");
+    pages.forEach(p => p.classList.remove("active"));
+    pages[i].classList.add("active");
+    current = i;
 }
 
-/* NEXT */
-function next(){
-    if(current < pages.length - 1){
-        current++;
-        show(current);
-    } else {
-        pages.forEach(p=>p.classList.remove("active"));
-        document.getElementById("final").style.display = "flex";
+/* navigation */
+function next(){ if(current < pages.length-1) show(current+1); }
+function prev(){ if(current > 0) show(current-1); }
+function restart(){ show(0); }
+
+/* start */
+function start(){
+    show(1);
+    music.volume = 0.5;
+    music.play().catch(()=>{});
+}
+
+/* intro remove */
+setTimeout(()=>{
+    document.getElementById("intro").style.display = "none";
+},3000);
+
+/* confetti */
+function confetti(){
+    for(let i=0;i<30;i++){
+        let c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random()*100 + "vw";
+        c.style.background = ["#ff8fab","#f4acb7","#ffd6e0"][Math.floor(Math.random()*3)];
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),3000);
     }
 }
 
-/* BACK */
-function back(){
-    if(current > 0){
-        current--;
-        show(current);
+/* trigger confetti on final page */
+setInterval(()=>{
+    if(current === pages.length-1){
+        confetti();
     }
-}
+},2000);
 
-/* FINAL BACK */
-function backToLast(){
-    document.getElementById("final").style.display = "none";
-    current = pages.length - 1;
-    show(current);
-}
+/* swipe */
+let startX = 0;
+document.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+document.addEventListener("touchend", e => {
+    let endX = e.changedTouches[0].clientX;
+    if(startX - endX > 50) next();
+    if(endX - startX > 50) prev();
+});
 
+/* music unlock */
+document.addEventListener("click", ()=>{
+    if(music.paused){
+        music.play().catch(()=>{});
+    }
+});
 </script>
 
 </body>
