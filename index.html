@@ -8,253 +8,196 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    overflow: hidden;
-    height: 100vh;
-    background: radial-gradient(circle at top, #ffe4ec, #f8ede3);
-    transition: background 1.5s ease;
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    font-family:Poppins;
+    background: radial-gradient(circle,#120b2e,#1a123f,#2b123f);
+    color:white;
 }
 
-/* heartbeat glow */
-body.heartbeat {
-    animation: pulse 2.5s infinite;
+/* STARFIELD */
+.star{
+    position:absolute;
+    width:2px;height:2px;
+    background:white;
+    opacity:0.7;
+    animation:fall linear infinite;
+}
+@keyframes fall{to{transform:translateY(100vh)}}
+
+/* HEARTBEAT */
+body.heartbeat{animation:beat 2.5s infinite}
+@keyframes beat{
+0%{filter:brightness(1)}
+50%{filter:brightness(1.3)}
+100%{filter:brightness(1)}
 }
 
-@keyframes pulse {
-    0% { filter: brightness(1); }
-    50% { filter: brightness(1.2); }
-    100% { filter: brightness(1); }
+/* PAGE */
+.page{
+    position:absolute;
+    width:80%;
+    max-width:750px;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) scale(0.9);
+    opacity:0;
+    transition:.6s ease;
+    text-align:center;
+    padding:25px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
 }
 
-/* intro */
-#intro {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: black;
-    color: #ff4d6d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 40px;
-    font-family: 'Playfair Display';
-    z-index: 999;
-    animation: introFade 3s forwards;
+.page.active{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1);
 }
 
-@keyframes introFade {
-    0% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { opacity: 0; visibility: hidden; }
+h1{color:#ff9bb3;font-family:Playfair Display}
+
+button{
+    padding:10px 18px;
+    border:none;
+    border-radius:20px;
+    margin:6px;
+    background:#ff6f91;
+    color:white;
+    cursor:pointer;
 }
 
-.container {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+input{
+    padding:10px;
+    border-radius:15px;
+    border:none;
+    text-align:center;
 }
 
-.page {
-    position: absolute;
-    width: 85%;
-    max-width: 780px;
-    text-align: center;
-    opacity: 0;
-    transform: scale(0.9);
-    transition: 0.7s ease;
-    padding: 35px;
-    border-radius: 25px;
-    background: rgba(255,255,255,0.65);
-    backdrop-filter: blur(15px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-    pointer-events: none;
+/* credits */
+#credits{
+position:fixed;
+bottom:-100%;
+width:100%;
+text-align:center;
+animation:credits 12s linear forwards;
 }
-
-.page.active {
-    opacity: 1;
-    transform: scale(1);
-    pointer-events: auto;
-}
-
-h1 {
-    font-family: 'Playfair Display';
-    color: #d46a7c;
-}
-
-p {
-    font-size: 16px;
-    line-height: 1.7;
-    color: #333;
-}
-
-button {
-    margin: 10px;
-    padding: 12px 26px;
-    border: none;
-    border-radius: 30px;
-    background: linear-gradient(135deg,#ff8fab,#f4acb7);
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.cupid {
-    font-size: 90px;
-    animation: bounce 1s infinite;
-}
-
-@keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
-
-.confetti {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    top: -10px;
-    animation: fall 3s linear forwards;
-}
-
-@keyframes fall {
-    to { transform: translateY(100vh) rotate(720deg); }
-}
+@keyframes credits{to{bottom:120%}}
 </style>
 </head>
 
 <body class="heartbeat">
 
-<div id="intro">Netflix Presents ❤️</div>
-
 <audio id="music" src="music.mp3" loop></audio>
+
+<script>
+for(let i=0;i<120;i++){
+let s=document.createElement("div");
+s.className="star";
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*100+"vh";
+s.style.animationDuration=(5+Math.random()*10)+"s";
+document.body.appendChild(s);
+}
+</script>
 
 <div class="container">
 
-<!-- PAGE 0 -->
-<div class="page active">
-    <h1>I Choose You ❤️</h1>
-    <p>A story about choosing someone… every single day.</p>
-    <button onclick="start()">Begin</button>
-</div>
+<!-- 1 -->
+<div class="page active"><h1>Netflix Presents ❤️</h1><button onclick="start()">Begin</button></div>
 
-<!-- PAGE 1 -->
+<!-- 2 -->
+<div class="page"><h1>I Choose You</h1><p>A cinematic love story</p><button onclick="next()">Next</button></div>
+
+<!-- 3–20 LOVE STORY -->
+<div class="page"><p>It started quietly… like my heart already knew.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>I didn’t fall into love. I grew into it.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>You feel like calm in chaos.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>I don’t need perfect. I need real.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>You became my peace.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>I choose you in silence too.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>Even on bad days… still you.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>You feel like home.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>My future quietly has your name in it.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>I never stopped choosing you.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>Love became simple with you.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>You are my alignment.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>I see forever in small moments.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>You make everything softer.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>Even silence feels like you.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>I would choose this again.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>You are my constant.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>Love stopped being confusing.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+
+<!-- 21–27 DEEP ZONE -->
+<div class="page"><p>I am not afraid of us growing.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>Mistakes don’t scare me with you.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>We learn. We stay.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>You make me better without trying.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>Love is safe with you.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>You are not my missing piece.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+<div class="page"><p>You are my peace.</p><button onclick="nav(-1)">Back</button><button onclick="nav(1)">Next</button></div>
+
+<!-- 28 LOCK -->
 <div class="page">
-    <h1>Happy Birthday 🎂</h1>
-    <p>This is not just a message. It is a journey through how I feel about you.</p>
-    <button onclick="prev()">Back</button>
-    <button onclick="next()">Next</button>
+<h1>💌 Unlock Ending</h1>
+<p>Type the name to continue</p>
+<input id="name">
+<button onclick="unlock()">Unlock</button>
 </div>
 
-<!-- STORY ARC PAGES -->
-<div class="page"><p>🎵 It started quietly… like something my heart already understood before I did.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>💗 I didn’t fall into love. I grew into it… slowly, safely, naturally.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>🌙 With you, I don’t feel like I need to perform. I just exist… and that feels enough.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>💞 I don’t always say it, but I keep choosing you in silence, in thoughts, in everything.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>💫 Even on hard days, nothing in me stops choosing you.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>🌍 You became part of every version of my future without even trying.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>💌 Love didn’t confuse me with you. It clarified everything.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>🌸 Even your silence feels like home to me now.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>🕊️ I don’t love you for moments. I love you for consistency.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>🌙 I don’t need perfect. I just need real. And you are real to me.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>💓 I’ve seen versions of you you don’t even notice… and I still choose all of them.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>✨ You are not a distraction. You are alignment.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>🌍 Every future I imagine still somehow circles back to you.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>💞 Even if life changes everything else… I still see you in mine.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<!-- FINAL -->
+<!-- 29 FINAL -->
 <div class="page">
-    <div class="cupid">💘</div>
-    <h1>I Choose You</h1>
-    <p>
-        Not once. Not twice.  
-        But every time I think about forever.
-    </p>
+<h1>I Choose You ❤️</h1>
+<p>Not once. Not sometimes. Always.</p>
+<button onclick="nav(-1)">Back</button>
+<button onclick="next()">Next</button>
+</div>
 
-    <button onclick="prev()">Back</button>
-    <button onclick="restart()">Restart</button>
+<!-- 30 CREDITS -->
+<div class="page">
+<h1>💖 The End</h1>
+<p>Written in love, chosen forever.</p>
 </div>
 
 </div>
+
+<div id="credits">A love story in motion ❤️</div>
+
+<audio id="music" src="music.mp3" loop></audio>
 
 <script>
-let current = 0;
-const pages = document.querySelectorAll(".page");
-const music = document.getElementById("music");
+let pages=document.querySelectorAll(".page");
+let current=0;
+let music=document.getElementById("music");
 
-/* show page */
 function show(i){
-    pages.forEach(p => p.classList.remove("active"));
-    pages[i].classList.add("active");
-    current = i;
+pages.forEach(p=>p.classList.remove("active"));
+pages[i].classList.add("active");
+current=i;
 }
 
-/* navigation */
-function next(){ if(current < pages.length-1) show(current+1); }
-function prev(){ if(current > 0) show(current-1); }
-function restart(){ show(0); }
+function next(){if(current<pages.length-1)show(current+1);}
+function nav(d){show(current+d);}
+function start(){music.play();show(1);}
 
-/* start */
-function start(){
-    show(1);
-    music.volume = 0.5;
-    music.play().catch(()=>{});
+function unlock(){
+let v=document.getElementById("name").value;
+if(v.length>0)show(29);
+else alert("Type name ❤️");
 }
 
-/* intro remove */
-setTimeout(()=>{
-    document.getElementById("intro").style.display = "none";
-},3000);
-
-/* confetti */
-function confetti(){
-    for(let i=0;i<30;i++){
-        let c = document.createElement("div");
-        c.className = "confetti";
-        c.style.left = Math.random()*100 + "vw";
-        c.style.background = ["#ff8fab","#f4acb7","#ffd6e0"][Math.floor(Math.random()*3)];
-        document.body.appendChild(c);
-        setTimeout(()=>c.remove(),3000);
-    }
-}
-
-/* trigger confetti on final page */
+/* auto star generation */
 setInterval(()=>{
-    if(current === pages.length-1){
-        confetti();
-    }
-},2000);
-
-/* swipe */
-let startX = 0;
-document.addEventListener("touchstart", e => startX = e.touches[0].clientX);
-document.addEventListener("touchend", e => {
-    let endX = e.changedTouches[0].clientX;
-    if(startX - endX > 50) next();
-    if(endX - startX > 50) prev();
-});
-
-/* music unlock */
-document.addEventListener("click", ()=>{
-    if(music.paused){
-        music.play().catch(()=>{});
-    }
-});
+let s=document.createElement("div");
+s.className="star";
+s.style.left=Math.random()*100+"vw";
+s.style.top="-10px";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),10000);
+},200);
 </script>
 
 </body>
