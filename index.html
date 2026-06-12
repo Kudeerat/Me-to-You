@@ -3,56 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday 💖</title>
+<title>For My Baby 💖</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
 body{
-    font-family:Poppins, sans-serif;
-    height:100vh;
+    margin:0;
+    font-family: Poppins, sans-serif;
     overflow:hidden;
-    background: linear-gradient(135deg,#f7d6e0,#fcefee,#f5e6ca,#ffe4ec);
-    background-size:400% 400%;
-    animation:bgMove 12s ease infinite;
+    background: linear-gradient(135deg,#f7d6e0,#fcefee,#ffe4ec);
 }
 
-/* animated background */
-@keyframes bgMove{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-
-/* FLOATING HEARTS */
-.heart{
-    position:absolute;
-    color:#ff5c8a;
-    font-size:18px;
-    animation:floatUp linear infinite;
-    opacity:0.5;
-}
-
-@keyframes floatUp{
-    0%{transform:translateY(100vh); opacity:0;}
-    20%{opacity:0.6;}
-    100%{transform:translateY(-10vh); opacity:0;}
-}
-
-/* PAGE SLIDES */
+/* PAGE */
 .page{
     display:none;
     height:100vh;
-    padding:40px;
-    text-align:center;
     justify-content:center;
     align-items:center;
+    text-align:center;
     flex-direction:column;
 }
 
@@ -60,29 +27,18 @@ body{
     display:flex;
 }
 
-/* TEXT */
-h1{
-    font-family:"Great Vibes", cursive;
-    font-size:4rem;
-    color:#c2185b;
-}
-
-p{
-    max-width:650px;
-    margin-top:15px;
-    font-size:1.2rem;
-    color:#5a4a4a;
-    line-height:1.6;
-}
-
-/* NAV BUTTONS */
-.nav{
+/* FINAL */
+#final{
     position:fixed;
-    bottom:25px;
+    top:0;
+    left:0;
     width:100%;
-    display:flex;
+    height:100vh;
+    display:none;
     justify-content:center;
-    gap:20px;
+    align-items:center;
+    flex-direction:column;
+    background: radial-gradient(circle,#fff0f5,#f7e7dc);
 }
 
 button{
@@ -91,112 +47,99 @@ button{
     border-radius:30px;
     background:#ff7aa2;
     color:white;
-    font-size:1rem;
     cursor:pointer;
-    transition:0.3s;
-}
-
-button:hover{
-    background:#e91e63;
-    transform:scale(1.05);
-}
-
-/* MUSIC BUTTON */
-.music-btn{
-    position:fixed;
-    top:20px;
-    right:20px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC -->
-<audio id="music" loop>
+<!-- 🔊 MUSIC (IMPORTANT FIX) -->
+<audio id="music" loop preload="auto">
     <source src="music.mp3" type="audio/mp3">
 </audio>
 
-<button class="music-btn" onclick="toggleMusic()">🎵 Play Music</button>
-
-<!-- HEARTS SCRIPT -->
-<script>
-for(let i=0;i<25;i++){
-    let heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random()*100 + "vw";
-    heart.style.animationDuration = (3 + Math.random()*5) + "s";
-    heart.style.fontSize = (12 + Math.random()*18) + "px";
-    document.body.appendChild(heart);
-}
-</script>
+<!-- START SCREEN -->
+<div id="startScreen" class="page active">
+    <h1>💖 Tap to Begin</h1>
+    <button onclick="startSite()">Start</button>
+</div>
 
 <!-- PAGES -->
-<div class="page active">
-    <h1>Happy Birthday 💖</h1>
-    <p>This is your special day, wrapped in pink skies, soft memories, and love that never fades.</p>
+<div class="page"><h1>Page 1 ❤️</h1></div>
+<div class="page"><h1>Page 2 💖</h1></div>
+<div class="page"><h1>Page 3 🌸</h1></div>
+
+<!-- FINAL -->
+<div id="final">
+    <h1>💖 For You</h1>
+    <p>You are my happiness</p>
 </div>
 
-<div class="page">
-    <h1>You Are Special ✨</h1>
-    <p>You are the kind of person who turns ordinary moments into something unforgettable.</p>
-</div>
-
-<div class="page">
-    <h1>My Wish For You 🎂</h1>
-    <p>I wish you peace, happiness, success, and a love that always feels like home no matter where you are.</p>
-</div>
-
-<div class="page">
-    <h1>Forever 💗</h1>
-    <p>Some people don’t leave your heart, they just stay there quietly forever.</p>
-</div>
-
-<!-- NAVIGATION -->
-<div class="nav">
-    <button onclick="prevPage()">⬅ Back</button>
-    <button onclick="nextPage()">Next ➡</button>
+<!-- NAV -->
+<div style="position:fixed;bottom:20px;width:100%;text-align:center;">
+    <button onclick="back()">⬅ Back</button>
+    <button onclick="next()">Next ➡</button>
 </div>
 
 <script>
+
 let pages = document.querySelectorAll(".page");
-let currentPage = 0;
+let current = 0;
 
-function showPage(index){
-    pages.forEach(p => p.classList.remove("active"));
-    pages[index].classList.add("active");
-}
+/* 🔊 MUSIC SYSTEM (FIXED PROPERLY) */
+const music = document.getElementById("music");
 
-function nextPage(){
-    if(currentPage < pages.length - 1){
-        currentPage++;
-        showPage(currentPage);
+function startMusic(){
+    music.volume = 1;
+    music.currentTime = 0;
+
+    const playPromise = music.play();
+
+    if(playPromise !== undefined){
+        playPromise.catch(() => {
+            // fallback: force play after next tap anywhere
+            document.body.addEventListener("click", () => {
+                music.play();
+            }, { once:true });
+        });
     }
 }
 
-function prevPage(){
-    if(currentPage > 0){
-        currentPage--;
-        showPage(currentPage);
+/* START SITE */
+function startSite(){
+    document.getElementById("startScreen").classList.remove("active");
+    pages[0].classList.add("active");
+
+    startMusic(); // 🔥 MUSIC STARTS HERE (BEST POSSIBLE WAY)
+}
+
+/* SHOW */
+function show(i){
+    pages.forEach(p=>p.classList.remove("active"));
+    if(pages[i]) pages[i].classList.add("active");
+}
+
+/* NEXT */
+function next(){
+    if(current < pages.length - 1){
+        current++;
+        show(current);
+    } else {
+        document.querySelector(".nav")?.remove?.();
+        document.getElementById("final").style.display="flex";
+        pages.forEach(p=>p.classList.remove("active"));
     }
 }
 
-/* MUSIC */
-let music = document.getElementById("music");
-let isPlaying = false;
-
-function toggleMusic(){
-    if(!isPlaying){
-        music.play().catch(()=>alert("Click again to start music 🎵"));
-        isPlaying = true;
-        document.querySelector(".music-btn").innerText = "⏸ Pause Music";
-    }else{
-        music.pause();
-        isPlaying = false;
-        document.querySelector(".music-btn").innerText = "🎵 Play Music";
+/* BACK */
+function back(){
+    if(current > 0){
+        current--;
+        show(current);
     }
 }
+
 </script>
 
 </body>
