@@ -8,129 +8,185 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-body{
-margin:0;
-height:100vh;
-overflow:hidden;
-font-family:Poppins;
-background: radial-gradient(circle,#120b2e,#1a123f,#2b123f);
-color:white;
+
+/* 🌌 GALAXY BACKGROUND */
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at bottom, #0b0c2a, #1a0f2e, #2b123f);
+    color: white;
 }
 
-/* pages */
-.page{
-position:absolute;
-width:80%;
-max-width:750px;
-left:50%;
-top:50%;
-transform:translate(-50%,-50%) scale(0.9);
-opacity:0;
-transition:.6s ease;
-text-align:center;
-padding:25px;
-border-radius:20px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(20px);
-pointer-events:none;
+/* ⭐ STARFIELD */
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    opacity: 0.8;
+    animation: floatStars linear infinite;
 }
 
-.page.active{
-opacity:1;
-transform:translate(-50%,-50%) scale(1);
-pointer-events:auto;
+@keyframes floatStars {
+    from { transform: translateY(0); }
+    to { transform: translateY(100vh); }
 }
 
-h1{color:#ff9bb3;font-family:Playfair Display}
-
-button{
-padding:10px 18px;
-border:none;
-border-radius:20px;
-margin:6px;
-background:#ff6f91;
-color:white;
-cursor:pointer;
+/* 💓 HEARTBEAT GLOW */
+body.heartbeat {
+    animation: heartbeat 2s infinite;
 }
 
-input{
-padding:10px;
-border-radius:15px;
-border:none;
-text-align:center;
+@keyframes heartbeat {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.4) saturate(1.3); }
+    100% { filter: brightness(1); }
 }
 
-/* stars */
-.star{
-position:absolute;
-width:2px;
-height:2px;
-background:white;
-opacity:.7;
-animation:fall linear infinite;
+/* 🎬 PAGES */
+.page {
+    position: absolute;
+    width: 80%;
+    max-width: 750px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0;
+    transition: 0.7s ease;
+    text-align: center;
+    padding: 30px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
 }
 
-@keyframes fall{
-to{transform:translateY(100vh)}
+.page.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* 💖 TEXT */
+h1 {
+    font-family: 'Playfair Display';
+    color: #ff9bb3;
+}
+
+button {
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: none;
+    margin: 8px;
+    background: linear-gradient(135deg,#ff6f91,#ff9671);
+    color: white;
+    cursor: pointer;
+}
+
+/* 🌠 SHOOTING STAR */
+.shooting-star {
+    position: fixed;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, white, transparent);
+    top: -10px;
+    left: 0;
+    animation: shoot 1.2s linear;
+}
+
+@keyframes shoot {
+    from { transform: translateX(-100px) translateY(0); opacity: 1; }
+    to { transform: translateX(100vw) translateY(100vh); opacity: 0; }
+}
+
+/* 🎬 END CREDITS */
+#credits {
+    position: fixed;
+    bottom: -100%;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+    animation: creditsRoll 12s linear forwards;
+}
+
+@keyframes creditsRoll {
+    to { bottom: 120%; }
+}
+
+/* 💌 INPUT */
+input {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    text-align: center;
 }
 </style>
 </head>
 
-<body>
+<body class="heartbeat">
 
 <audio id="music" src="music.mp3" loop></audio>
 
+<!-- 🌠 STARFIELD -->
 <script>
-for(let i=0;i<100;i++){
-let s=document.createElement("div");
-s.className="star";
-s.style.left=Math.random()*100+"vw";
-s.style.top=Math.random()*100+"vh";
-s.style.animationDuration=(5+Math.random()*10)+"s";
-document.body.appendChild(s);
+for(let i=0;i<120;i++){
+    let s=document.createElement("div");
+    s.className="star";
+    s.style.left=Math.random()*100+"vw";
+    s.style.top=Math.random()*100+"vh";
+    s.style.animationDuration=(5+Math.random()*10)+"s";
+    document.body.appendChild(s);
 }
 </script>
 
-<!-- 30 PAGES -->
-
-<div class="page active"><h1>Netflix Presents ❤️</h1><button onclick="start()">Begin</button></div>
-
-<div class="page"><p>I Choose You — a story in motion.</p><button onclick="next()">Next</button></div>
-
-<div class="page"><p>It started quietly…</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-<div class="page"><p>I didn’t fall. I grew.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-<div class="page"><p>You feel like calm.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-<div class="page"><p>I choose you in silence.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-<div class="page"><p>You became my home.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-<div class="page"><p>Love became simple.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-<div class="page"><p>You are my peace.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-<div class="page"><p>I never stopped choosing you.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>Mistakes don’t scare me with you.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-<div class="page"><p>We learn. We stay.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-<div class="page"><p>You make me better.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-<div class="page"><p>Even silence feels like you.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-<div class="page"><p>My future has you in it.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-<div class="page"><p>You are alignment.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-<div class="page"><p>I choose you again.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<div class="page"><p>You are not my missing piece.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-<div class="page"><p>You are my peace.</p><button onclick="prev()">Back</button><button onclick="next()">Next</button></div>
-
-<!-- LOCK -->
-<div class="page">
-<h1>💌 Unlock</h1>
-<input id="name" placeholder="type name">
-<br><br>
-<button onclick="unlock()">Unlock</button>
+<!-- PAGES -->
+<div class="page active">
+    <h1>I Choose You ❤️</h1>
+    <p>A cinematic love story…</p>
+    <button onclick="start()">Begin</button>
 </div>
 
-<!-- FINAL -->
 <div class="page">
-<h1>I Choose You ❤️</h1>
-<p>Always. No exceptions.</p>
-<button onclick="prev()">Back</button>
-<button onclick="restart()">Restart</button>
+    <h1>It Started Quietly</h1>
+    <p>Like something my heart already understood before I did.</p>
+    <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+    <h1>And Then It Grew</h1>
+    <p>Not rushed. Not forced. Just real.</p>
+    <button onclick="prev()">Back</button>
+    <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+    <h1>💓 I Choose You</h1>
+    <p>Even in silence, I still choose you.</p>
+    <button onclick="next()">Next</button>
+</div>
+
+<!-- 💌 LOCK PAGE -->
+<div class="page">
+    <h1>💌 Final Lock</h1>
+    <p>Type my name to unlock the ending</p>
+    <input id="nameInput" placeholder="enter name">
+    <br><br>
+    <button onclick="unlock()">Unlock</button>
+</div>
+
+<!-- FINAL PAGE -->
+<div class="page">
+    <h1>💖 You Found It</h1>
+    <p>You are my forever choice.</p>
+    <button onclick="restart()">Restart</button>
+</div>
+
+<!-- 🎬 CREDITS -->
+<div id="credits">
+    A love story written in motion ❤️<br>
+    I Choose You — Always<br>
+    The End ✨
 </div>
 
 <script>
@@ -141,31 +197,66 @@ let music=document.getElementById("music");
 
 /* SHOW PAGE */
 function show(i){
-if(i<0 || i>=pages.length) return;
-pages.forEach(p=>p.classList.remove("active"));
-pages[i].classList.add("active");
-current=i;
+    pages.forEach(p=>p.classList.remove("active"));
+    pages[i].classList.add("active");
+    current=i;
 }
 
-/* NAVIGATION (FIXED) */
-function next(){ show(current+1); }
-function prev(){ show(current-1); }
+/* NAV */
+function next(){ if(current<pages.length-1) show(current+1); }
+function prev(){ if(current>0) show(current-1); }
 function restart(){ show(0); }
 
 /* START */
 function start(){
-music.play().catch(()=>{});
-show(1);
+    music.play().catch(()=>{});
+    show(1);
+    spawnStars();
 }
 
-/* UNLOCK */
+/* 💌 NAME UNLOCK */
 function unlock(){
-let v=document.getElementById("name").value;
-if(v.trim().length>0){
-show(pages.length-1);
-}else{
-alert("Type a name ❤️");
+    let val=document.getElementById("nameInput").value.toLowerCase();
+    if(val.length>0){
+        show(pages.length-1);
+    }else{
+        alert("Type the name ❤️");
+    }
 }
+
+/* 🌠 SHOOTING STARS */
+function shootingStar(){
+    let star=document.createElement("div");
+    star.className="shooting-star";
+    document.body.appendChild(star);
+    setTimeout(()=>star.remove(),1200);
+}
+
+/* random stars */
+setInterval(()=> {
+    if(current>0){
+        shootingStar();
+    }
+},3000);
+
+/* 🎧 FAKE MUSIC SYNC (VISUAL BEAT PULSE) */
+setInterval(()=>{
+    if(!music.paused){
+        document.body.style.filter="brightness("+(1+Math.random()*0.2)+")";
+    }
+},400);
+
+/* 🌌 STAR SPAWN CONTROL */
+function spawnStars(){
+    setInterval(()=>{
+        let s=document.createElement("div");
+        s.className="star";
+        s.style.left=Math.random()*100+"vw";
+        s.style.top="-10px";
+        s.style.animationDuration=(5+Math.random()*10)+"s";
+        document.body.appendChild(s);
+        setTimeout(()=>s.remove(),12000);
+    },300);
 }
 
 </script>
