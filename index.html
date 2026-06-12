@@ -13,18 +13,8 @@ body{
     background: linear-gradient(135deg,#f7d6e0,#fcefee,#ffe4ec);
 }
 
-/* START SCREEN */
-#startScreen{
-    display:flex;
-    height:100vh;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    flex-direction:column;
-}
-
-/* PAGE */
-.page{
+/* SCREEN */
+.screen{
     display:none;
     height:100vh;
     justify-content:center;
@@ -34,7 +24,7 @@ body{
     padding:20px;
 }
 
-.page.active{
+.screen.active{
     display:flex;
 }
 
@@ -69,31 +59,6 @@ button{
     align-items:center;
     flex-direction:column;
     background: radial-gradient(circle,#fff0f5,#f7e7dc);
-    text-align:center;
-}
-
-.finalCard{
-    background:white;
-    padding:30px;
-    border-radius:25px;
-    max-width:500px;
-}
-
-.finalHeart{
-    font-size:80px;
-    animation:float 2s infinite ease-in-out;
-}
-
-.finalHeart::after{
-    content:"😇🪽";
-    display:block;
-    font-size:30px;
-}
-
-@keyframes float{
-    0%{transform:translateY(0);}
-    50%{transform:translateY(-20px);}
-    100%{transform:translateY(0);}
 }
 </style>
 </head>
@@ -106,7 +71,8 @@ button{
 </audio>
 
 <!-- START SCREEN -->
-<div id="startScreen">
+<!-- START SCREEN -->
+<div id="start" class="screen active">
     <div>
         <h1>💖 Tap to Begin</h1>
         <button onclick="startSite()">Start</button>
@@ -116,7 +82,7 @@ button{
 
 <!-- PAGES (UNCHANGED CONTENT) -->
 
-<div id="page1" class="page active"><div class="card">
+<div class="screen page"><div class="card">
 <h1>❤️ You</h1>
 <p>You are my baby. Protective, passionate, kind, romantic, emotional, and soft in ways you don’t even see in yourself.</p>
 <button onclick="next()">Next ➡</button>
@@ -272,56 +238,54 @@ button{
 
 <script>
 
-let current = 1;
-const total = 20;
+let pages = document.querySelectorAll(".page");
+let current = 0;
 
 const music = document.getElementById("music");
 
-/* MUSIC FIX (autoplay safe) */
+/* MUSIC FIX */
 function startMusic(){
-    music.play().catch(() => {
-        document.body.addEventListener("click", () => music.play(), {once:true});
+    music.play().catch(()=>{
+        document.body.addEventListener("click", ()=>music.play(), {once:true});
     });
 }
 
 /* START */
 function startSite(){
-    document.getElementById("startScreen").style.display = "none";
-    current = 1;
-    show(current);
+    document.getElementById("start").style.display = "none";
+    pages[0].classList.add("active");
     startMusic();
 }
 
 /* SHOW */
-function show(n){
-    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-    const page = document.getElementById("page"+n);
-    if(page) page.classList.add("active");
+function show(i){
+    pages.forEach(p=>p.classList.remove("active"));
+    if(pages[i]) pages[i].classList.add("active");
 }
 
 /* NEXT */
 function next(){
-    if(current < total){
+    if(current < pages.length - 1){
         current++;
         show(current);
     } else {
-        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+        pages.forEach(p=>p.classList.remove("active"));
         document.getElementById("final").style.display = "flex";
     }
 }
 
 /* BACK */
 function back(){
-    if(current > 1){
+    if(current > 0){
         current--;
         show(current);
     }
 }
 
-/* BACK FROM FINAL */
-function backTo20(){
+/* FINAL BACK */
+function backToLast(){
     document.getElementById("final").style.display = "none";
-    current = total;
+    current = pages.length - 1;
     show(current);
 }
 
