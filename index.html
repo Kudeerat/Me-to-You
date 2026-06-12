@@ -8,7 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-/* 🌈 BACKGROUND ANIMATION */
+
+/* 🌌 upgraded galaxy romantic background */
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -17,12 +18,13 @@ body {
     color: #2a2a2a;
 
     background:
-        radial-gradient(circle at top left, rgba(255,182,193,0.35), transparent 40%),
-        radial-gradient(circle at bottom right, rgba(248,200,220,0.35), transparent 45%),
+        radial-gradient(circle at 10% 20%, rgba(255, 182, 193, 0.35), transparent 35%),
+        radial-gradient(circle at 90% 80%, rgba(248, 200, 220, 0.35), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(255, 228, 196, 0.25), transparent 45%),
         linear-gradient(135deg, #fff6f8, #f7efe8);
 }
 
-/* soft floating blobs */
+/* 🌸 floating blobs */
 .blob {
     position: absolute;
     width: 320px;
@@ -40,6 +42,40 @@ body {
 @keyframes float {
     0%,100%{ transform: translateY(0px) scale(1); }
     50%{ transform: translateY(-30px) scale(1.08); }
+}
+
+/* ✨ moving stars layer */
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.stars::before,
+.stars::after {
+    content: "✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧";
+    position: absolute;
+    width: 200%;
+    font-size: 18px;
+    color: rgba(255,255,255,0.6);
+    animation: floatStars 18s linear infinite;
+    letter-spacing: 40px;
+}
+
+.stars::after {
+    top: 50%;
+    animation-duration: 25s;
+    opacity: 0.4;
+}
+
+@keyframes floatStars {
+    from { transform: translateY(100vh) translateX(0); }
+    to { transform: translateY(-100vh) translateX(-50px); }
 }
 
 /* container */
@@ -149,15 +185,18 @@ button:hover {
 <div class="blob"></div>
 <div class="blob"></div>
 
+<!-- ✨ stars layer -->
+<div class="stars"></div>
+
 <div id="progress">1 / 23</div>
 
 <audio id="music" src="music.mp3" loop></audio>
 
 <div class="container">
 
-<!-- PAGE 0 (NEW INTRO) -->
+<!-- PAGE 0 -->
 <div class="page active">
-    <h1>HI LOVE ❤️</h1>
+    <h1>Hi LOVE ❤️</h1>
     <p>This is something small… but it carries all the things I can’t always say out loud.</p>
     <p>Before anything else… I just want you to feel loved today.</p>
     <button onclick="start()">Begin</button>
@@ -218,7 +257,7 @@ button:hover {
 
 <div class="page"><p>I pray for your happiness, peace, and success.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
 
-<div class="page"><p>I will always be in your corner.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
+<div class="page"><p>I will always be in your corner. I am always here to listen and to embrace you.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
 
 <div class="page"><p>Thank you for being you.</p><div class="nav"><button onclick="prev()">Back</button><button onclick="next()">Next</button></div></div>
 
